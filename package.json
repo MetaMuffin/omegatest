@@ -1,0 +1,60 @@
+{
+  "name": "blubmediaserver",
+  "version": "0.1.0",
+  "description": "Muffin Media Server",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "debug": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MetaMuffin/BlubMediaServer.git"
+  },
+  "keywords": [
+    "server",
+    "media"
+  ],
+  "author": "MetaMuffin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MetaMuffin/BlubMediaServer/issues"
+  },
+  "homepage": "https://github.com/MetaMuffin/BlubMediaServer#readme",
+  "dependencies": {
+    "@types/archiver": "^3.1.1",
+    "@types/body-parser": "^1.19.0",
+    "@types/connect-busboy": "0.0.2",
+    "@types/express": "^4.17.7",
+    "@types/express-fileupload": "^1.1.3",
+    "@types/fluent-ffmpeg": "^2.1.16",
+    "@types/gm": "^1.18.9",
+    "@types/mongodb": "^3.5.25",
+    "@types/node": "^14.0.26",
+    "@types/throttle": "^1.0.0",
+    "@types/uuid": "^8.0.0",
+    "@types/webpack": "^4.41.25",
+    "@types/webpack-dev-middleware": "^3.7.2",
+    "archiver": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-busboy": "0.0.2",
+    "connect-form": "^0.2.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.9",
+    "fluent-ffmpeg": "^2.1.2",
+    "gm": "^1.23.1",
+    "mongodb": "^3.5.9",
+    "node-smb-server": "^0.10.36",
+    "throttle": "^1.0.3",
+    "ts-loader": "^8.0.11",
+    "uuid": "^8.2.0",
+    "webpack": "^5.10.0",
+    "webpack-dev-middleware": "^4.0.2"
+  },
+  "devDependencies": {
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  }
+}

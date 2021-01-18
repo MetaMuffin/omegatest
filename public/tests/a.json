@@ -1,0 +1,43 @@
+{
+  "name": "Relevanter Persönlichkeitstest",
+  "values": {
+    "blub": {
+      "description": "Blubbigkeitsgrad"
+    },
+    "blah": {
+      "description": "Blah blah blah"
+    }
+  },
+  "questions": [
+    {
+      "title": "Doof?",
+      "description": "Bist du doof?",
+      "type": "select",
+      "choices": [
+        {
+          "name": "Ja",
+          "mod": {
+            "blub": 1
+          }
+        },
+        {
+          "name": "Nein",
+          "mod": {
+            "blub": -1,
+            "blah": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "title": "Uff",
+      "description": "Wie uffig fühlst du dich?",
+      "type": "slider",
+      "minmax": [-3, 3],
+      "mod": {
+        "blub": "v*0.3",
+        "blah": "v*-0.1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+
+
+input,select {
+    margin: 1em;
+    background-color: var(--accent-1-l);
+}
+
+input[type=range] {
+    width: 50%
+}
+
+select {
+    font-weight: bold;
+}
