@@ -22,6 +22,7 @@ export interface TQuestion {
 
 export interface TValue {
     description: string
+    name: string
 }
 
 
@@ -37,7 +38,7 @@ export async function loadTest(name: string) {
 var qprogress: HTMLProgressElement
 
 export async function init() {
-    var test: Test = await loadTest("a")
+    var test: Test = await loadTest("kek")
     var values: { [key: string]: number } = {}
 
     for (const valname in test.values) {
@@ -77,7 +78,10 @@ export function buildResults(values: { [key: string]: number }, valdef: { [key: 
             const def = valdef[valname];
             const val = values[valname];
             var rrow = document.createElement("div")
+            var rlabel = document.createElement("span")
             var rbar = document.createElement("div")
+
+            rlabel.textContent = `${def.name}: ${val.toFixed(1)}pt`
 
             rrow.classList.add("res-row")
             rbar.classList.add("res-bar")
@@ -85,11 +89,28 @@ export function buildResults(values: { [key: string]: number }, valdef: { [key: 
             rbar.style.width = `${Math.min(Math.max(Math.abs(val * 10), 0), 100)}%`
             if (val < 0) rrow.classList.add("neg")
             else rrow.classList.add("pos")
-            rrow.append(rbar)
+            rrow.append(rlabel,rbar)
             rbars.appendChild(rrow)
         }
     }
-    rdiv.append(rheader, rbars)
+    var rdescs = document.createElement("div")
+    for (const valname in valdef) {
+        if (valdef.hasOwnProperty(valname)) {
+            const def = valdef[valname];
+            const val = values[valname];
+            var rrow = document.createElement("div")
+            rrow.classList.add("desc-box")
+            var rname = document.createElement("h3")
+            var rdesc = document.createElement("p")
+
+            rname.textContent = def.name
+            rdesc.textContent = def.description
+
+            rrow.append(rname, rdesc)
+            rdescs.appendChild(rrow)
+        }
+    }
+    rdiv.append(rheader, rbars, rdescs)
 
     return rdiv
 }
@@ -108,6 +129,7 @@ export function buildQuestion(q: TQuestion, values: { [key: string]: number }, o
     qsubmit.value = "Next >"
 
     var qinput = document.createElement("div")
+    qinput.classList.add("q-input")
     if (q.type == "select" && q.choices) {
         var qselect = document.createElement("select")
         for (let i = 0; i < q.choices.length; i++) {
@@ -140,15 +162,23 @@ export function buildQuestion(q: TQuestion, values: { [key: string]: number }, o
         }
         qinput.appendChild(qselect)
     } else if (q.type == "slider" && q.minmax && q.mod) {
+        var qslidervalue = document.createElement("span")
+        qslidervalue.classList.add("q-slider-value")
         var qslider = document.createElement("input")
+        qslidervalue.textContent = "0"
         qslider.type = "range"
         qslider.min = "" + q.minmax[0]
         qslider.max = "" + q.minmax[1]
         qslider.value = "0"
         var slider_value = 0
+        const update_value = () => {
+            qslidervalue.textContent = qslider.value
+        }
         qslider.onchange = () => {
             slider_value = parseFloat(qslider.value)
+            update_value()
         }
+        qslider.onmousemove = () => update_value()
         qsubmit.onclick = () => {
             for (const valname in q.mod) {
                 if (q.mod.hasOwnProperty(valname)) {
@@ -164,7 +194,7 @@ export function buildQuestion(q: TQuestion, values: { [key: string]: number }, o
             }
             ondone()
         }
-        qinput.appendChild(qslider)
+        qinput.append(qslidervalue,qslider)
     }
     qdiv.append(qheader, qdescription, qinput, qsubmit)
     return qdiv
